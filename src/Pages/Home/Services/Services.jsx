@@ -11,7 +11,7 @@ const Services = () => {
   }, []);
 
   return (
-    <div className="mt-8 lg:mt-3">
+    <div className="mt-8 lg:mt-3 mb-5">
       <div className="space-y-3">
         <h1 className="text-red-500 text-center font-bold">Services</h1>
         <h1 className="text-4xl text-center font-bold">Our Service Area</h1>
@@ -24,6 +24,12 @@ const Services = () => {
         {services?.map((service) => (
           <Service service={service} key={service._id}></Service>
         ))}
+      </div>
+
+      <div className="mt-8 text-center">
+        <button className="btn btn-outline border-red-500 text-red-500 hover:bg-red-500 hover:border-none">
+          More Services
+        </button>
       </div>
     </div>
   );
