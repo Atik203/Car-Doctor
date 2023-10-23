@@ -6,17 +6,17 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 
-const Login = () => {
-  const { SignIn } = useContext(AuthContext);
+const SignUp = () => {
+  const { createUser } = useContext(AuthContext);
 
-  const handleLogin = (e) => {
+  const handleSignUp = (e) => {
     e.preventDefault();
     const form = e.target;
-
+    const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
 
-    SignIn(email, password)
+    createUser(email, password)
       .then((result) => {
         const user = result.user;
         console.log(user);
@@ -26,13 +26,25 @@ const Login = () => {
 
   return (
     <div className="hero min-h-screen mb-10">
-      <div className="hero-content flex-col gap-8 lg:flex-row">
+      <div className="hero-content gap-8 flex-col lg:flex-row">
         <div className="text-center lg:text-left w-1/2">
           <img src={login} alt="" />
         </div>
         <div className="card flex-shrink-0 border-2 border-gray-200 max-w-md lg:w-1/2">
-          <h1 className="text-center font-bold text-4xl mt-5">Log In</h1>
-          <form onSubmit={handleLogin} className="card-body">
+          <h1 className="text-center font-bold text-4xl mt-5">Sign Up</h1>
+          <form onSubmit={handleSignUp} className="card-body">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                placeholder="name"
+                name="name"
+                className="input input-bordered"
+                required
+              />
+            </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -64,7 +76,7 @@ const Login = () => {
             </div>
             <div className="form-control mt-6">
               <button className="btn bg-red-500 text-white hover:text-black">
-                Login
+                Sign Up
               </button>
             </div>
             <div>
@@ -82,9 +94,9 @@ const Login = () => {
                 </div>
               </div>
               <h1 className="text-center my-4 mt-3">
-                Don't Have a account?{" "}
-                <Link to={"/signup"}>
-                  <span className="text-red-500 hover:underline">Sign up</span>
+                Already Have a account?{" "}
+                <Link to={"/login"}>
+                  <span className="text-red-500 hover:underline">Login</span>
                 </Link>
               </h1>
             </div>
@@ -95,4 +107,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
