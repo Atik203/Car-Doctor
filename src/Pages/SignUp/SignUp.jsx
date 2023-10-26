@@ -21,7 +21,7 @@ const SignUp = () => {
         const user = result.user;
         console.log(user);
       })
-      .then((error) => console.log(error.message));
+      .then((error) => console.log(error));
   };
 
   return (

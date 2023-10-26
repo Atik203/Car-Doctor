@@ -2,7 +2,18 @@ import logo from "../../assets/logo.svg";
 import { Link, NavLink } from "react-router-dom";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogout = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const links = (
     <>
       <li>
@@ -55,6 +66,28 @@ const Navbar = () => {
           Contact
         </NavLink>
       </li>
+      {user?.email ? (
+        <li>
+          {" "}
+          <button
+            onClick={handleLogout}
+            className="btn bg-red-500 text-center pt-4 text-white"
+          >
+            Log out
+          </button>{" "}
+        </li>
+      ) : (
+        <li>
+          <NavLink
+            to={`/login`}
+            className={({ isActive, isPending }) =>
+              isPending ? "pending" : isActive ? "text-red-500 underline" : ""
+            }
+          >
+            Login
+          </NavLink>
+        </li>
+      )}
     </>
   );
 

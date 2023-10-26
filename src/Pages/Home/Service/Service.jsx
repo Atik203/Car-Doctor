@@ -1,7 +1,8 @@
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Link } from "react-router-dom";
 
 const Service = ({ service }) => {
-  const { title, img, price, service_id } = service;
+  const { title, img, price, service_id, _id } = service;
 
   return (
     <div className="card card-compact border-gray-200 border-2">
@@ -11,9 +12,11 @@ const Service = ({ service }) => {
       <div className="card-body">
         <h2 className="card-title font-bold text-2xl">{title}</h2>
         <p className="text-red-500 font-bold">Price: {price}$</p>
-        <div className="card-actions justify-end cursor-pointer text-red-500">
-          <ArrowForwardIcon></ArrowForwardIcon>
-        </div>
+        <Link to={`/checkout/${_id}`}>
+          <div className="card-actions justify-end cursor-pointer text-red-500">
+            <ArrowForwardIcon></ArrowForwardIcon>
+          </div>
+        </Link>
       </div>
     </div>
   );
