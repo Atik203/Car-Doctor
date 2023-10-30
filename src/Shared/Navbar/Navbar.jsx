@@ -67,15 +67,27 @@ const Navbar = () => {
         </NavLink>
       </li>
       {user?.email ? (
-        <li>
-          {" "}
-          <button
-            onClick={handleLogout}
-            className="btn bg-red-500 text-center pt-4 text-white"
-          >
-            Log out
-          </button>{" "}
-        </li>
+        <>
+          <li>
+            {" "}
+            <button
+              onClick={handleLogout}
+              className="btn bg-red-500 text-center pt-4 text-white"
+            >
+              Log out
+            </button>{" "}
+          </li>
+          <li>
+            <NavLink
+              to={`/bookings`}
+              className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "text-red-500 underline" : ""
+              }
+            >
+              My bookings
+            </NavLink>
+          </li>
+        </>
       ) : (
         <li>
           <NavLink
