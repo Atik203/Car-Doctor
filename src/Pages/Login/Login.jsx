@@ -2,13 +2,16 @@ import login from "../../assets/images/login/login.svg";
 import { FcGoogle } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
 import { BiLogoLinkedin } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import axios from "axios";
 
 const Login = () => {
   const { SignIn } = useContext(AuthContext);
 
+  const location = useLocation();
+  const navigate = useNavigate();
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -18,10 +21,21 @@ const Login = () => {
 
     SignIn(email, password)
       .then((result) => {
-        const user = result.user;
-        console.log(user);
+        const loggedInUser = result.user;
+
+        const user = { email };
+        axios
+          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .then((res) => {
+            if (res.data.success) {
+              navigate(location?.state ? location?.state : "/");
+            }
+          });
+        // if (location?.state) {
+        //   navigate(location?.state ? location?.state : "/");
+        // }
       })
-      .then((error) => console.log(error.message));
+      .then((error) => console.log(error));
   };
 
   return (
